@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using DBModelConnector;
 
 namespace NWord2Vec
 {
@@ -15,7 +16,17 @@ namespace NWord2Vec
             this.Stream = stream;
         }
 
-        public Model Open()
+        public void LoadToDb(DbModelConnector dbModelConnector)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void LoadToDb()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public RealModel Open()
         {
             using (var reader = new StreamReader(this.Stream, Encoding.UTF8, true, 4 * 1024))
             {
@@ -29,7 +40,7 @@ namespace NWord2Vec
                 {
                     vectors.Add(vector);
                 }
-                return new Model(words == 0 ? vectors.Count : words, size == 0 ? (int)this.Stream.Length : size, vectors);
+                return new RealModel(words == 0 ? vectors.Count : words, size == 0 ? (int)this.Stream.Length : size, vectors);
             }
         }
 

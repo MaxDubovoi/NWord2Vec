@@ -14,7 +14,7 @@ namespace NWord2Vec.Tests
         [TestMethod]
         public void TestLoadingText()
         {
-            var model = Model.Load("model.txt");
+            var model = RealModel.Load("model.txt");
             TestLoadedModel(model);
 
         }
@@ -23,7 +23,7 @@ namespace NWord2Vec.Tests
         public void TestLoadingTextInAnotherCulture()
         {
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
-            var model = Model.Load("model.txt");
+            var model = RealModel.Load("model.txt");
             TestLoadedModel(model);
 
         }
@@ -31,7 +31,7 @@ namespace NWord2Vec.Tests
         [TestMethod]
         public void TestLoadingCompressedText()
         {
-            var model = Model.Load("model.txt.gz");
+            var model = RealModel.Load("model.txt.gz");
             TestLoadedModel(model);
         }
 
@@ -39,8 +39,8 @@ namespace NWord2Vec.Tests
         [TestMethod]
         public void TestReLoadingText()
         {
-            var model = Model.Load("model.txt");
-            Model m2;
+            var model = RealModel.Load("model.txt");
+            RealModel m2;
             using (var s = new MemoryStream())
             {
                 using (var writer = new TextModelWriter(s, true))
@@ -50,7 +50,7 @@ namespace NWord2Vec.Tests
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new TextModelReader(s);
                 {
-                    m2 = Model.Load(tmr);
+                    m2 = RealModel.Load(tmr);
                 }
             }
             Assert.AreEqual(model.Words, m2.Words);
@@ -60,21 +60,21 @@ namespace NWord2Vec.Tests
         [TestMethod]
         public void TestLoadingBinary()
         {
-            var model = Model.Load(@"model.bin");
+            var model = RealModel.Load(@"model.bin");
             TestLoadedModel(model);
         }
 
         [TestMethod]
         public void TestLoadingCompressedBinary()
         {
-            var model = Model.Load(@"model.bin.gz");
+            var model = RealModel.Load(@"model.bin.gz");
             TestLoadedModel(model);
         }
 
         [TestMethod]
         public void TestLoadingTextFileWithNoHeader()
         {
-            var model = Model.Load(@"modelWithNoHeader.txt");
+            var model = RealModel.Load(@"modelWithNoHeader.txt");
             Assert.AreEqual(2, model.Words);
         }
 
@@ -82,8 +82,8 @@ namespace NWord2Vec.Tests
         [TestMethod]
         public void TestReLoadingBinary()
         {
-            var model = Model.Load("model.txt");
-            Model m2;
+            var model = RealModel.Load("model.txt");
+            RealModel m2;
             using (var s = new MemoryStream())
             {
                 using (var writer = new BinaryModelWriter(s, true))
@@ -92,7 +92,7 @@ namespace NWord2Vec.Tests
                 }
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new BinaryModelReader(s);
-                m2 = Model.Load(tmr);
+                m2 = RealModel.Load(tmr);
             }
             Assert.AreEqual(model.Words, m2.Words);
             Assert.AreEqual(model.Size, m2.Size);
@@ -100,7 +100,7 @@ namespace NWord2Vec.Tests
 
       
 
-        private static void TestLoadedModel(Model model)
+        private static void TestLoadedModel(RealModel model)
         {
             Assert.IsNotNull(model);
             Assert.AreEqual(4501, model.Words);

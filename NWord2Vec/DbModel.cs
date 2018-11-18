@@ -8,7 +8,7 @@ using System.IO.Compression;
 
 namespace NWord2Vec
 {
-    public class ModelReaderFactory
+    public class DbModel
     {
         Stream OpenStream(string filePath)
         {
@@ -32,7 +32,7 @@ namespace NWord2Vec
             }
         }
 
-        public RealModel Manufacture(string filePath)
+        public DbModel(string filePath)
         {
             using (var fileStream = OpenStream(filePath))
             {
@@ -43,7 +43,7 @@ namespace NWord2Vec
                 }
 
                 var reader = GetReader(fileStream, ext.ToLower());
-                return reader.Open();
+                reader.LoadToDb();
             }
         }
     }

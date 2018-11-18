@@ -1,9 +1,12 @@
-﻿using System;
+﻿using DBModelConnector;
+using System;
 
 namespace NWord2Vec
 {
     public interface IModelReader 
     {
-        Model Open();
+        RealModel Open();
+        void LoadToDb();
+
     }
 }

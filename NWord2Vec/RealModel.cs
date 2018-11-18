@@ -2,11 +2,11 @@
 
 namespace NWord2Vec
 {
-    public class Model
+    public class RealModel
     {
         public int Words { get; private set; }
         public int Size { get; private set; }
-        List<WordVector> vectors;
+        private List<WordVector> vectors;
 
         public IEnumerable<WordVector> Vectors => this.vectors;
 
@@ -15,19 +15,19 @@ namespace NWord2Vec
             this.vectors.Add(vector);
         }
 
-        public Model(int words, int size, List<WordVector> vectors)
+        public RealModel(int words, int size, List<WordVector> vectors)
         {
             this.Words = words;
             this.Size = size;
             this.vectors = vectors;
         }
 
-        public static Model Load(string filename)
+        public static RealModel Load(string filename)
         {
             return new ModelReaderFactory().Manufacture(filename);
         }
 
-        public static Model Load(IModelReader source)
+        public static RealModel Load(IModelReader source)
         {
             return source.Open();
         }

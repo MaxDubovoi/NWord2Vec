@@ -46,22 +46,22 @@ namespace NWord2Vec
         }
 
 
-        public static WordVector GetByWord(this Model model, string word)
+        public static WordVector GetByWord(this RealModel model, string word)
         {
             return model.Vectors.FirstOrDefault(x => x.Word == word);
         }
 
-        public static IEnumerable<WordVector> Nearest(this Model model, float[] vector)
+        public static IEnumerable<WordVector> Nearest(this RealModel model, float[] vector)
         {
             return model.Vectors.OrderBy(x => x.Vector.Distance(vector));
         }
 
-        public static WordVector NearestSingle(this Model model, float[] vector)
+        public static WordVector NearestSingle(this RealModel model, float[] vector)
         {
             return model.Vectors.OrderBy(x => x.Vector.Distance(vector)).First();
         }
 
-        public static double Distance(this Model model, string word1, string word2)
+        public static double Distance(this RealModel model, string word1, string word2)
         {
             var vector1 = model.GetByWord(word1);
             var vector2 = model.GetByWord(word2);
@@ -70,7 +70,7 @@ namespace NWord2Vec
             return vector1.Vector.Distance(vector2.Vector);
         }
 
-        public static IEnumerable<WordDistance> Nearest(this Model model, string word)
+        public static IEnumerable<WordDistance> Nearest(this RealModel model, string word)
         {
             var vector = model.GetByWord(word);
             if (vector == null) throw new ArgumentException(string.Format("cannot find word '{0}'", word));

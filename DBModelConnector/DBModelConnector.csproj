@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A058189C-3DBF-487E-95BC-905B139F38BE}</ProjectGuid>
+    <ProjectGuid>{6CCFAADC-6019-44A5-8C81-3925E3BFC34E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NWord2Vec</RootNamespace>
-    <AssemblyName>NWord2Vec</AssemblyName>
+    <RootNamespace>DBModelConnector</RootNamespace>
+    <AssemblyName>DBModelConnector</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,38 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryModelReader.cs" />
-    <Compile Include="BinaryModelWriter.cs" />
-    <Compile Include="DbModel.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="IModel.cs" />
-    <Compile Include="IModelReader.cs" />
-    <Compile Include="IModelWriter.cs" />
-    <Compile Include="RealModel.cs" />
-    <Compile Include="ModelReaderFactory.cs" />
-    <Compile Include="ModelWriterFactory.cs" />
+    <Compile Include="DbModelConnector.cs" />
+    <Compile Include="ModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextModelWriter.cs" />
-    <Compile Include="TextModelReader.cs" />
-    <Compile Include="WordDistance.cs" />
-    <Compile Include="WordVector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DBModelConnector\DBModelConnector.csproj">
-      <Project>{6ccfaadc-6019-44a5-8c81-3925e3bfc34e}</Project>
-      <Name>DBModelConnector</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

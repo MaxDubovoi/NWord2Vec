@@ -16,7 +16,7 @@ namespace NWord2Vec
 
         private StreamWriter Writer { get; set; }
 
-        public void Write(Model m)
+        public void Write(RealModel m)
         {
             //Write the header
             WriteHeader(m);
@@ -36,7 +36,7 @@ namespace NWord2Vec
             Writer.Write('\n');
         }
 
-        private void WriteHeader(Model m)
+        private void WriteHeader(RealModel m)
         {
             Writer.Write(m.Words);
             Writer.Write(' ');

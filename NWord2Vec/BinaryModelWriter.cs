@@ -15,7 +15,7 @@ namespace NWord2Vec
         }
         private BinaryWriter Writer { get; set; }
 
-        public void Write(Model m)
+        public void Write(RealModel m)
         {
             WriteHeader(m);
             foreach (var wv in m.Vectors)
@@ -24,7 +24,7 @@ namespace NWord2Vec
             }
         }
 
-        private void WriteHeader(Model m)
+        private void WriteHeader(RealModel m)
         {
             WriteString(string.Format("{0} {1}\n", m.Words, m.Size));
         }

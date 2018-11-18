@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
+using DBModelConnector;
 
 namespace NWord2Vec
 {
@@ -15,7 +16,7 @@ namespace NWord2Vec
             this.Stream = stream;
         }
 
-        public Model Open()
+        public RealModel Open()
         {
             using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
             {
@@ -29,9 +30,35 @@ namespace NWord2Vec
                     vectors.Add(ReadVector(reader, words, size));
                 }
 
-                return new Model(words, size, vectors);
+                return new RealModel(words, size, vectors);
             }
 
+        }
+        public void LoadToDb()
+        {
+            var dbConnector = DbModelConnector.GetConnector();
+            dbConnector.ClearDb();
+            using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
+            {
+                var header = ReadHeader(reader);
+                var words = header[0];
+                var size = header[1];
+
+
+                WordVector vector;
+                for (var i = 0; i < words; i++)
+                {
+                    vector = ReadVector(reader, words, size);
+                    dbConnector.AddVector(vector.Word, vector.Vector);
+                    Console.Clear();
+                    Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)words * 100));
+                    if ((i % 100 == 0) || i == words - 1)
+                    {
+                        dbConnector.SaveChanges();
+                    }
+                }
+                return;
+            }
         }
 
 
@@ -63,6 +90,10 @@ namespace NWord2Vec
             if (LineBreaks) br.ReadByte(); // consume line break
        
             return result;
+        }
+        public void ReadVectorToDb()
+        {
+
         }
 
         private static bool IsStringEnd(char[] c)
@@ -102,5 +133,7 @@ namespace NWord2Vec
             }
             return sb.ToString();
         }
+
+        
     }
 }

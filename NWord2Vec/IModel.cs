@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace NWord2Vec
 {
-    public interface IModelWriter : IDisposable
+    interface IModel
     {
-        void Write(RealModel m);
+        IModel Load(string filename, bool isSaveToDatabase = false);
+        RealModel Load(IModelReader source);
     }
 }
