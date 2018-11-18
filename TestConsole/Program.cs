@@ -11,7 +11,24 @@ namespace TestConsole
     class Program
     {
         static void Main(string[] args)
-        {/*
+        {
+
+            Console.WriteLine("Loading Model to Db ");
+            var startTime = DateTime.Now;
+            var model = new DbModel();
+            model.LoadModelToDb(@"model.bin");
+            var finishTime = DateTime.Now;
+            Console.WriteLine("Time: {0} ", finishTime - startTime);
+
+            Console.WriteLine("Enter word:");
+            var word = Console.ReadLine();
+            var wordVector = model.ReadWordVector(word);
+            Console.WriteLine("Word: {0}  FirstVector: {1}", wordVector.Word, wordVector.Vector.First());
+
+
+            Console.ReadLine();
+
+            /*
             var model = RealModel.Load(@"model.bin");
             Console.WriteLine("Words loading: "+model.Words);
             while (true)
@@ -37,12 +54,7 @@ namespace TestConsole
 
             }
         */
-            Console.WriteLine("Loading Model to Db ");
-            var startTime = DateTime.Now;
-            var model = new DbModel(@"model.bin");
-            var finishTime = DateTime.Now;
-            Console.WriteLine("Time: {0} ", finishTime-startTime);
-            Console.ReadLine();
+
         }
     }
 }

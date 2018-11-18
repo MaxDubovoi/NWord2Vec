@@ -31,6 +31,7 @@ namespace DBModelConnector
                 if(context == null)
             {
                 context = new ModelContext();
+                context.Configuration.AutoDetectChangesEnabled = false;
             }
            
                 var wordDTO = new ModelContext.WordDTO { Value = word };
@@ -53,12 +54,20 @@ namespace DBModelConnector
                 context.Database.Delete();
         }
 
-        
+        public float[] GetVector(string word)
+        {
+            using (var modelContext = new ModelContext())
+            {
+                var vectors = modelContext.Vectors.Where(v => v.WordDTO.Value == word).Select(v => v.Value);
+                
+                return vectors.ToArray();
+            }
+        }
         public void SaveChanges()
         {
-            context.SaveChanges();
             if (context != null)
             {
+                context.SaveChanges();
                 context.Dispose();
                 context = null;
             }

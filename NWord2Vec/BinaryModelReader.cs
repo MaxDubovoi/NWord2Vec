@@ -52,7 +52,7 @@ namespace NWord2Vec
                     dbConnector.AddVector(vector.Word, vector.Vector);
                     Console.Clear();
                     Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)words * 100));
-                    if ((i % 100 == 0) || i == words - 1)
+                    if ((i % 1000 == 0) || i == words - 1)
                     {
                         dbConnector.SaveChanges();
                     }
