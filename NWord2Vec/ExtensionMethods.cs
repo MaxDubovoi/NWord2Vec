@@ -35,6 +35,85 @@ namespace NWord2Vec
             }
             return result;
         }
+        public static float[] Multiply(this float[] vector, float scalarValue)
+        {
+            if (vector == null) throw new ArgumentNullException("vector");
+
+            var result = new float[vector.Length];
+            for (var i = 0; i < vector.Length; i++)
+            {
+                result[i] = vector[i] * scalarValue;
+            }
+            return result;
+        }
+        public static float Sum(this float[] vector)
+        {
+            float result = 0;
+            for (var i = 0; i < vector.Length; i++)
+            {
+                result +=  vector[i];
+            }
+            return result;
+        }
+        public static double[,] ToDouble(this List<float[]> list)
+        {
+            int size = list.First().Length;
+            var result = new double[list.Count,list.First().Length];
+            int listIterator = 0;
+            foreach (float[] vector in list)
+            {
+                for(int i = 0; i<vector.Length; i++)
+                {
+                    result[listIterator,i] = vector[i];
+                }
+                    
+                listIterator++;
+            }
+            return result;
+        }
+        public static double [] ToDouble(this List<float> list)
+        {
+            var listIterator = 0;
+            var result = new double[list.Count];
+            foreach (float item in list)
+            {
+                
+                    result[listIterator] = item;
+                    listIterator++;
+            }
+            return result;
+        }
+        public static float[] ToFloat(this double[] vector)
+        {
+            if (vector == null) throw new ArgumentNullException("vector");
+
+            var result = new float[vector.Length];
+            for (var i = 0; i < vector.Length; i++)
+            {
+                result[i] = (float)vector[i];
+            }
+            return result;
+        }
+        public static double[] ToDouble(this float[] vector)
+        {
+            if (vector == null) throw new ArgumentNullException("vector");
+
+            var result = new double[vector.Length];
+            for (var i = 0; i < vector.Length; i++)
+            {
+                result[i] = (double) vector[i];
+            }
+            return result;
+        }
+        public static float[] Pow(this float[] vector, float value)
+        {
+            var result = new float[vector.Length];
+            for (var i = 0; i < vector.Length; i++)
+            {
+                result[i] = (float)Math.Pow(vector[i],value);
+            }
+            return result;
+        }
 
         public static double Distance(this float[] value1, float[] value2)
         {
@@ -80,6 +159,25 @@ namespace NWord2Vec
         public static double Distance(this WordVector word1, WordVector word2)
         {
             return word1.Vector.Distance(word2.Vector);
+        }
+        public static List<WordDistance> DistanceList(this List<WordVector> wordList, WordVector currentWord)
+        {
+            var distanceList = new List<WordDistance>();
+            foreach(WordVector word in wordList)
+            {
+                distanceList.Add(new WordDistance(word.Word, word.Distance(currentWord), currentWord.Word));
+            }
+            return distanceList;
+        }
+        public static double AvarageDistance(this List<WordDistance> distances)
+        {
+            double sum = 0;
+            foreach(WordDistance item in distances)
+            {
+                sum +=item.Distance;
+            }
+            return sum / distances.Count;
+           
         }
 
         public static float[] Add(this WordVector word1, WordVector word2)

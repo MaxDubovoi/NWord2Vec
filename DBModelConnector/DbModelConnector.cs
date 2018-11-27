@@ -39,7 +39,7 @@ namespace DBModelConnector
 
                for(int i = 0; i<vector.Length; i++)
                 {
-                    vectors.Add(new ModelContext.VectorDTO { Value = vector[i], WordDTO = wordDTO });
+                    vectors.Add(new ModelContext.VectorDTO {VectorIndex = i, Value = vector[i], WordDTO = wordDTO });
                 }
             wordDTO.Vectors = vectors;
             context.Vectors.AddRange(wordDTO.Vectors);
@@ -58,10 +58,33 @@ namespace DBModelConnector
         {
             using (var modelContext = new ModelContext())
             {
-                var vectors = modelContext.Vectors.Where(v => v.WordDTO.Value == word).Select(v => v.Value);
-                
-                return vectors.ToArray();
+                float[] vectors = null;
+                double[] result;
+
+                    System.Data.SqlClient.SqlParameter paramW1 = new System.Data.SqlClient.SqlParameter("@enterWord", word);
+                   vectors = modelContext.Database.SqlQuery<float>("dbo.GetVectorByWord @enterWord", paramW1).ToArray();
+                    //vectors = result.ToFloat();
+                    return vectors;
             }
+        }
+        public double GetDistanceProcedure(string word1, string word2)
+        {
+            using (var modelContext = new ModelContext())
+            {
+                double distance = 0;
+                System.Data.SqlClient.SqlParameter paramW1 = new System.Data.SqlClient.SqlParameter("@word1", word1);
+                System.Data.SqlClient.SqlParameter paramW2 = new System.Data.SqlClient.SqlParameter("@word2", word2);
+                try { 
+                var result = modelContext.Database.SqlQuery<double>("dbo.GetDistance @word1, @word2", paramW1, paramW2);
+                distance = result.FirstOrDefault();
+                
+                }
+                catch (Exception ex)
+                {
+                    distance = -1;
+                }
+                return distance;
+            } 
         }
         public void SaveChanges()
         {

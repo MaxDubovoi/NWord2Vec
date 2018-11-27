@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
 using DBModelConnector;
+using simple_text_mining_library;
 
 namespace NWord2Vec
 {
@@ -34,8 +35,35 @@ namespace NWord2Vec
 
         public WordVector ReadWordVector(string word)
         {
+            float[] tempWordVector = connector.GetVector(word);
+            return new WordVector(word, tempWordVector);
+        }
+        public double GetWordDistance(string word1, string word2)
+        {
+            return connector.GetDistanceProcedure(word1, word2);
+        }
 
-            return new WordVector(word, connector.GetVector(word));
+        public List<WordVector> Nearest()
+        {
+            return new List<WordVector>();
+        }
+        public List<WordVector> CreateWordVectorList(string filePath)
+        {
+            List<WordVector> resultList = new List<WordVector>();
+            var inputText = File.ReadAllText(filePath);
+            WordVector tempWordVector; 
+            var texCleaner = new MineText();
+            texCleaner.textMiningLanguage = simple_text_mining_library.Classes.TextMiningLanguage.English;
+            inputText = texCleaner.RemoveSpecialCharacters(inputText, true);
+            inputText = texCleaner.RemoveStopWordsFromText(inputText);
+            var listText = texCleaner.N1GramAnalysis(inputText);
+            foreach (string item in listText){
+                tempWordVector = ReadWordVector(item);
+                if(tempWordVector.Vector.Count()>0)
+                resultList.Add(tempWordVector);
+            }
+            return resultList;
+
         }
 
         Stream OpenStream(string filePath)

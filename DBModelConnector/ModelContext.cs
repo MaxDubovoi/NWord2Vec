@@ -9,7 +9,7 @@ namespace DBModelConnector
 {
     class ModelContext : DbContext
     {
-        public ModelContext():base("Word2VecModel")
+        public ModelContext():base("WikipediaWord2VecModel")//Word2VecModel
         {
 
         }
@@ -26,9 +26,14 @@ namespace DBModelConnector
         public class VectorDTO
         {
             public int Id { get; set; }
+            public int VectorIndex { get; set; }
             public float Value { get; set; }
             public virtual WordDTO WordDTO { get; set; }
 
+        }
+        public class ListVectorDTO
+        {   
+            public double vector { get; set; }
         }
         
     }

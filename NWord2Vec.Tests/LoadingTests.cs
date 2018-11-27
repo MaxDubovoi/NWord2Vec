@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Threading;
 using System.Globalization;
+using NWord2Vec;
 
 namespace NWord2Vec.Tests
 {
@@ -148,6 +149,16 @@ namespace NWord2Vec.Tests
             Assert.AreEqual(2, result[0]);
             Assert.AreEqual(4, result[1]);
             Assert.AreEqual(6, result[2]);
+        }
+        [TestMethod]
+        public void TestVectorPower()
+        {
+            var x = new float[] { 1, 2, 3 };
+            var result = x.Pow(2);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result[0]);
+            Assert.AreEqual(4, result[1]);
+            Assert.AreEqual(9, result[2]);
         }
 
         [TestMethod]

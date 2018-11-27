@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +75,14 @@
     <ProjectReference Include="..\DBModelConnector\DBModelConnector.csproj">
       <Project>{6ccfaadc-6019-44a5-8c81-3925e3bfc34e}</Project>
       <Name>DBModelConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinearSystem\LinearSystem.csproj">
+      <Project>{f782ab04-0cf5-4bd8-bc61-aab62edb799b}</Project>
+      <Name>LinearSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\simple_text_mining_library\simple_text_mining_library\simple_text_mining_library.csproj">
+      <Project>{1175b0fe-aeb4-4fc3-8443-eaf59d665091}</Project>
+      <Name>simple_text_mining_library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
