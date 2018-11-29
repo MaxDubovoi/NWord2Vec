@@ -17,7 +17,7 @@ namespace TestConsole
             var model = new DbModel();
             
             var startTime = DateTime.Now;
-            Load();
+            //Load();
             while (false) {
             Console.Write("Enter first word: ");
             var word1 = Console.ReadLine();
@@ -28,12 +28,13 @@ namespace TestConsole
             var word2 = Console.ReadLine();
             Console.WriteLine("Distance {0} ---> {1}: {2} ",word1,word2, model.GetWordDistance(word1,word2).ToString());
             }
-            while (false)
+            string path = @"E:\Student\5CourseMaster\Diploma2018\MyDiplomaProject\SampleBooks\My sample text.txt"; //Console.ReadLine();
+            Console.WriteLine("Enter path to txt file: {0}", path);
+            var wordVectorTextList = model.CreateWordVectorList(path);
+            while (true)
             {
                
-                string path = @"E:\Student\5CourseMaster\Diploma2018\MyDiplomaProject\SampleBooks\My sample text.txt"; //Console.ReadLine();
-                Console.Write("Enter path to txt file: {0}", path);
-                var wordVectorTextList = model.CreateWordVectorList(path);
+               
                 var textModel = new RealModel(wordVectorTextList.Count, wordVectorTextList.First().Vector.Length, wordVectorTextList);
                 Console.Write("Enter main theme: ");
                 string word = Console.ReadLine();
@@ -41,7 +42,9 @@ namespace TestConsole
                 var distanceList = textModel.GetWordDistances(wordVector);
                 Console.WriteLine("Distance list computed!");
                 var avarageDistance = distanceList.AvarageDistance() ;
-                Console.WriteLine("Central Distance with {0}: {1}",word, avarageDistance);
+                var relativeDistance = avarageDistance / (distanceList.MaxDistance() - distanceList.MinDistance());
+                Console.WriteLine("Absolute Distance with {0}: {1}",word, avarageDistance);
+                Console.WriteLine("Relative Distance with {0}: {1}", word, relativeDistance);
                 Console.ReadLine();
             }
             while (false)
@@ -70,7 +73,7 @@ namespace TestConsole
             {
                 //var realModel = RealModel.Load(@"model.bin");
                 //model.LoadModelToDb(@"model.bin"); //E:\Student\5CourseMaster\Diploma2018\Example program\Models\cc.en.300.bin
-                model.LoadModelToDb(@"E:\Student\5CourseMaster\Diploma2018\Example program\Models\cc.en.300.bin");
+                model.LoadModelToDb(@"E:\Student\5CourseMaster\Diploma2018\Example program\Models\GoogleNews-vectors-negative300.bin");
                 var finishTime = DateTime.Now;
                 Console.WriteLine("Time: {0} ", finishTime - startTime);
                 Console.ReadLine();

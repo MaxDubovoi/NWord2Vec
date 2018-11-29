@@ -46,12 +46,11 @@ namespace NWord2Vec
 
 
                 WordVector vector;
-                for (var i = 0; i < words; i++)
+                for (var i = 0; i < 5000; i++)
                 {
                     vector = ReadVector(reader, words, size);
                     dbConnector.AddVector(vector.Word, vector.Vector);
-                    Console.Clear();
-                    Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)words * 100));
+                    Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)5000 * 100,3));
                     if ((i % 1000 == 0) || i == words - 1)
                     {
                         dbConnector.SaveChanges();

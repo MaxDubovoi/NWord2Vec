@@ -179,6 +179,32 @@ namespace NWord2Vec
             return sum / distances.Count;
            
         }
+        public static double MaxDistance(this List<WordDistance> distances)
+        {
+            double max = distances.First().Distance;
+            foreach (WordDistance item in distances)
+            {
+                if (item.Distance > max)
+                {
+                    max = item.Distance;
+                }
+            }
+            return max;
+
+        }
+        public static double MinDistance(this List<WordDistance> distances)
+        {
+            double min = distances.First().Distance;
+            foreach (WordDistance item in distances)
+            {
+                if (item.Distance < min)
+                {
+                    min = item.Distance;
+                }
+            }
+            return min;
+
+        }
 
         public static float[] Add(this WordVector word1, WordVector word2)
         {

@@ -9,7 +9,7 @@ namespace DBModelConnector
 {
     class ModelContext : DbContext
     {
-        public ModelContext():base("WikipediaWord2VecModel")//Word2VecModel
+        public ModelContext():base("WikipediaWord2VecModel")//Word2VecModel//WikipediaWord2VecModel
         {
 
         }
