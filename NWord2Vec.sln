@@ -25,7 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearSystem", "LinearSyste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTest", "ProjectTest\ProjectTest.csproj", "{E77DD88A-3D0E-45B0-B3F9-1E5D9096B884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clusteriser", "Clusteriser\Clusteriser.csproj", "{86E27AD4-5A7E-4175-976D-6768D83061F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clusteriser", "Clusteriser\Clusteriser.csproj", "{86E27AD4-5A7E-4175-976D-6768D83061F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExstentionMethods", "ExstentionMethods\ExstentionMethods.csproj", "{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,14 @@ Global
 		{86E27AD4-5A7E-4175-976D-6768D83061F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86E27AD4-5A7E-4175-976D-6768D83061F4}.Release|x86.ActiveCfg = Release|Any CPU
 		{86E27AD4-5A7E-4175-976D-6768D83061F4}.Release|x86.Build.0 = Release|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Debug|x86.Build.0 = Debug|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Release|x86.ActiveCfg = Release|Any CPU
+		{D49E1CF7-3780-47D3-9555-AF453ADD4CF1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Clusteriser.DTO
 {
-    class Vector
+    class VectorDTO
     {
-        private float[] coordinates;
+        private double[] coordinates;
         private string clusterName;
 
-        public float Coordinates { get; private set; }
+        public double[] Coordinates { get; private set; }
         public string ClusterName { get; set; }
-        public Vector(float coordinates)
+        public VectorDTO(double[] coordinates)
         {
             Coordinates = coordinates;
         }

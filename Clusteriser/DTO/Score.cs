@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Clusteriser.DTO
 {
-    class Score
+    public class Score
     {
         private string textClusterName;
 

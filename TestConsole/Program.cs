@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NWord2Vec;
 using DBModelConnector;
+using Clusteriser.Contracts;
+using Clusteriser;
 
 namespace TestConsole
 {
@@ -86,6 +88,10 @@ namespace TestConsole
                 var finishTime = DateTime.Now;
                 Console.WriteLine("Time: {0} ", finishTime - startTime);
                 Console.ReadLine();
+            }
+            void TestClusteriser(List<WordVector> textVectors, List<WordVector> queryVectors)
+            {
+                ICluster cluster = Cluster.Compute(textVectors, 3);//TODO: переобразовать List<WordWector> в List<float> 
             }
 
 

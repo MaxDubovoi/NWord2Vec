@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Clusteriser\Clusteriser.csproj">
+      <Project>{86e27ad4-5a7e-4175-976d-6768d83061f4}</Project>
+      <Name>Clusteriser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBModelConnector\DBModelConnector.csproj">
       <Project>{6ccfaadc-6019-44a5-8c81-3925e3bfc34e}</Project>
       <Name>DBModelConnector</Name>
