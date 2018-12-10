@@ -33,39 +33,14 @@ namespace NWord2Vec
         {
             return source.Open();
         }
-        public float[] GetCentralVector()//TODO: Solve problem with SLAR
+        public float[] GetCentralVector()
         {
-            List<float[]> leftSLAR = new List<float[]>();
-            List<float> rightSLAR = new List<float>();
-            double[] solution;
-            int index = 0;
-            int maxIterations = 1000;
-            double tolerance = 0.00001;
-            while (leftSLAR.Count < Size)
+            var vectorSum = new float[Size];
+           foreach(WordVector item in vectors)
             {
-                
-                var a = vectors.ElementAt(index);
-                foreach (WordVector b in vectors)
-                {
-                    if(a.Equals(b))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        leftSLAR.Add(a.Vector.Subtract(b.Vector).Multiply(2));
-                        rightSLAR.Add(a.Vector.Pow(2).Subtract(b.Vector.Pow(2)).Sum());
-                    }
-                    if (leftSLAR.Count == b.Vector.Length)
-                        break;
-                }
-                index++;
+                vectorSum = vectorSum.Add(item.Vector);
             }
-            var linearSystem = new ClassicalIterativeMethods();
-            solution = new double[rightSLAR.Count];
-
-            var haveSolution = linearSystem.Jacobi(leftSLAR.Count, maxIterations, tolerance ,leftSLAR.ToDouble(), rightSLAR.ToDouble(), solution);
-            return solution.ToFloat();
+            return vectorSum.Multiply(1 / Size);
         }
         public List<WordDistance> GetWordDistances(WordVector word)
         {

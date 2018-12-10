@@ -102,15 +102,6 @@ namespace DBModelConnector
             }
             return result;
         }
-
-        public static double Distance(this float[] value1, float[] value2)
-        {
-            if (value1 == null) throw new ArgumentNullException("value1");
-            if (value2 == null) throw new ArgumentNullException("value2");
-            if (value1.Length != value2.Length) throw new ArgumentException("vector lengths do not match");
-
-            return Math.Sqrt(value1.Subtract(value2).Select(x => x * x).Sum());
-        }
     }
 
 }

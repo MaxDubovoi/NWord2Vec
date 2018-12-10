@@ -37,7 +37,7 @@ namespace NWord2Vec
         public void LoadToDb()
         {
             var dbConnector = DbModelConnector.GetConnector();
-            dbConnector.ClearDb();
+           // dbConnector.ClearDb();
             using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
             {
                 var header = ReadHeader(reader);
@@ -46,11 +46,14 @@ namespace NWord2Vec
 
 
                 WordVector vector;
-                for (var i = 0; i < 5000; i++)
+                for (var i = 0; i < words; i++)
                 {
                     vector = ReadVector(reader, words, size);
-                    dbConnector.AddVector(vector.Word, vector.Vector);
-                    Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)5000 * 100,3));
+                    if (dbConnector.GetVector(vector.Word).Count() > 0)
+                    {
+                        dbConnector.AddVector(vector.Word, vector.Vector);
+                    }
+                    Console.WriteLine("Loading Model to Db: {0} % ", Math.Round(i / (float)words * 100,4));
                     if ((i % 1000 == 0) || i == words - 1)
                     {
                         dbConnector.SaveChanges();

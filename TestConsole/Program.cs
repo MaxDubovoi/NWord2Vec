@@ -15,9 +15,10 @@ namespace TestConsole
 
             Console.WriteLine("Connect Model to Db ");
             var model = new DbModel();
+            Console.WriteLine("Connected");
             
             var startTime = DateTime.Now;
-            //Load();
+            Load();
             while (false) {
             Console.Write("Enter first word: ");
             var word1 = Console.ReadLine();
@@ -28,24 +29,32 @@ namespace TestConsole
             var word2 = Console.ReadLine();
             Console.WriteLine("Distance {0} ---> {1}: {2} ",word1,word2, model.GetWordDistance(word1,word2).ToString());
             }
-            string path = @"E:\Student\5CourseMaster\Diploma2018\MyDiplomaProject\SampleBooks\My sample text.txt"; //Console.ReadLine();
-            Console.WriteLine("Enter path to txt file: {0}", path);
+            string path = @"E:\Student\5CourseMaster\Diploma2018\MyDiplomaProject\SampleBooks\My sample text.txt"; 
+            Console.WriteLine("Enter path to txt file: ", path);
+            path = Console.ReadLine();
             var wordVectorTextList = model.CreateWordVectorList(path);
+            var textModel = new RealModel(wordVectorTextList.Count, wordVectorTextList.First().Vector.Length, wordVectorTextList);
             while (true)
-            {
-               
-               
-                var textModel = new RealModel(wordVectorTextList.Count, wordVectorTextList.First().Vector.Length, wordVectorTextList);
+            { 
                 Console.Write("Enter main theme: ");
                 string word = Console.ReadLine();
                 var wordVector = model.ReadWordVector(word);
-                var distanceList = textModel.GetWordDistances(wordVector);
+                if(wordVector.Vector.Count()<300)
+                {
+                    Console.WriteLine("Unknown word");
+                    continue;
+                }
+               
+                var word2textDistanceList = textModel.GetWordDistances(wordVector);
+                WordVector centralTextVector = new WordVector("centralVector", textModel.GetCentralVector());
+                var centre2textDistanceList = textModel.GetWordDistances(centralTextVector);
                 Console.WriteLine("Distance list computed!");
-                var avarageDistance = distanceList.AvarageDistance() ;
-                var relativeDistance = avarageDistance / (distanceList.MaxDistance() - distanceList.MinDistance());
-                Console.WriteLine("Absolute Distance with {0}: {1}",word, avarageDistance);
+
+                var relativeDistance = 1 - (word2textDistanceList.MaxDistance() - word2textDistanceList.AvarageDistance())/ word2textDistanceList.MaxDistance();
+                Console.WriteLine("Avarage Distance with {0}: {1}",word, word2textDistanceList.AvarageDistance());
+                Console.WriteLine("Avarage Distance with {0}: {1}", centralTextVector.Word, centre2textDistanceList.AvarageDistance());
                 Console.WriteLine("Relative Distance with {0}: {1}", word, relativeDistance);
-                Console.ReadLine();
+                Console.WriteLine("Absolute Distance to central vector: {0}", wordVector.Vector.Distance(centralTextVector.Vector));
             }
             while (false)
             {
