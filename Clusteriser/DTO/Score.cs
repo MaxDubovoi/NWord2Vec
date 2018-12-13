@@ -6,23 +6,9 @@ namespace Clusteriser.DTO
 {
     public class Score
     {
-        private string textClusterName;
-
-        public string TextClusterName
-        {
-            get { return textClusterName; }
-            set { textClusterName = value; }
-        }
-
-        private string queryClusterName;
-
-        public string QueryClusterName
-        {
-            get { return queryClusterName; }
-            set { queryClusterName = value; }
-        }
-
         private double points;
+        private List<VectorDTO> _textCentroids;
+        private List<VectorDTO> _queryCentroid;
 
         public double Points
         {
@@ -30,12 +16,13 @@ namespace Clusteriser.DTO
             set { points = value; }
         }
 
-        public Score(string textName, string queryName, double points)
+        public Score(List<VectorDTO> textCentroid, List<VectorDTO> queryCentroid, double points)
         {
-            TextClusterName = textName;
-            QueryClusterName = queryName;
+            _textCentroids = textCentroid;
+            _queryCentroid = queryCentroid;
             Points = points;
         }
+
 
 
     }

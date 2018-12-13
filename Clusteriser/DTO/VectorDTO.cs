@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Clusteriser.DTO
 {
-    class VectorDTO
+    public class VectorDTO
     {
         private double[] coordinates;
         private string clusterName;

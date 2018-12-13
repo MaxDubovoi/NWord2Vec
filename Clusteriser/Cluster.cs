@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Clusteriser.Contracts;
 using Clusteriser.DTO;
-using Accord.MachineLearning;
 using ExstentionMethods;
 using System.Linq;
 
@@ -11,59 +10,80 @@ namespace Clusteriser
 {
     public class Cluster : ICluster
     {
-        private static List<VectorDTO> vectors;
-        private List<VectorDTO> centroids;
-        public string Name { get; private set; }
-        public int CentroidsNumber { get; set; }
-        private static int[] labels;
-        private Cluster()
-        {
-
-        }
-
-        public static ICluster Compute(List<float[]> _vectors, int numberOfClusters)
+        private List<VectorDTO> vectors;
+        private List<VectorDTO> centroids = new List<VectorDTO>();
+        //public string Name { get; private set; }
+        public int CentroidsNumber { get; private set; }
+        private Cluster(List<float[]> _vectors, List<List<double>> _centroids)
         {
             SetVectors(_vectors);
-            KMeans kmeans = new KMeans(k: numberOfClusters);
-
-            // Compute and retrieve the data centroids
-            var clusters = kmeans.Learn(GetDoubleVectors());
-
-            // Use the centroids to parition all the data
-            labels = clusters.Decide(GetDoubleVectors());
-            return new Cluster();
+            SetCentroids(_centroids);
+            CentroidsNumber = _centroids.Count;
         }
 
-        public List<Score> GetScores(ICluster cluster)
+        public static Cluster Compute(List<float[]> _vectors, int numberOfClusters)
         {
-            throw new NotImplementedException();
+            KMeansPP kMeans = new KMeansPP(numberOfClusters, _vectors.ToListListDouble());
+           var _centers = kMeans.runKMean();
+
+            return new Cluster(_vectors,_centers);
+        }
+
+        public List<Score> GetScores(Cluster textCluster)
+        {
+            var textCentroids = textCluster.GetCentroids();
+            var maxDistances = new List<double>();
+            var minDistances = new List<double>();
+            var avgDistances = new List<double>();
+            var scores = new List<Score>();
+
+            foreach(VectorDTO queryVector in centroids)
+            {
+                double maxDistance = 0;
+                double minDistance = 1000000000;
+                double distanceSum = 0;
+                double avgDistance = 0;
+                foreach (VectorDTO outVector in textCentroids)
+                { 
+                    var currentDistance = outVector.Coordinates.Distance(queryVector.Coordinates);
+                    distanceSum += currentDistance;
+                    if (maxDistance< currentDistance)
+                    {
+                        maxDistance = currentDistance;
+                    }
+                    if (minDistance > currentDistance)
+                    {
+                        minDistance = currentDistance;
+                    }
+                }
+                avgDistance = distanceSum / textCentroids.Count;
+                maxDistances.Add(maxDistance);
+                minDistances.Add(minDistance);
+                avgDistances.Add(avgDistance);
+
+                double points = ( avgDistance - minDistance ) / (maxDistance - minDistance);
+                scores.Add(new Score(textCentroids, centroids, points));
+                Console.WriteLine("Score {0} : {1}", scores.Count, points);
+                Console.WriteLine("Max = {0}", maxDistance);
+                Console.WriteLine("Avg = {0}", avgDistance);
+                Console.WriteLine("Min = {0}", minDistance);
+                Console.WriteLine("========================");
+            }
+
+            return scores;
         }
 
         public List<VectorDTO> GetVectors()
         {
             return vectors;
         }
-        private static double[][] GetDoubleVectors()
-        {
-            int size = vectors.First().Coordinates.Length;
-            var result = new double[vectors.Count][];
-            foreach (VectorDTO vector in vectors)
-            {
-                var listIterator = 0;
-                for (var i = 0; i < size; i++)
-                {
-                    result[listIterator][i] = vector.Coordinates[i];
-                }
-                listIterator++;
-            }
-            return result;
-        }
 
-        public static void SetVectors(List<float[]> _floatVectors)
+        public void SetVectors(List<float[]> _floatVectors)
         {
-            foreach (double[] item in _floatVectors.ToDouble())
-            {
-                vectors.Add(new VectorDTO(item));
+            vectors = new List<VectorDTO>();
+            foreach (List<double> row in _floatVectors.ToListListDouble())
+            {                
+                vectors.Add(new VectorDTO(row.ToArray()));
             }
         }
 
@@ -71,12 +91,11 @@ namespace Clusteriser
         {
             return centroids;
         }
-
-        private void SetCentroids(KMeansClusterCollection kMeansClusters)
+        private void SetCentroids(List<List<double>> _clusterCenters)
         {
-            foreach (double[] item in kMeansClusters.Centroids)
+            foreach(List<double> row in _clusterCenters)
             {
-                centroids.Add(new VectorDTO(item));
+                centroids.Add(new VectorDTO(row.ToArray()));
             }
         }
 

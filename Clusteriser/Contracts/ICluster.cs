@@ -7,7 +7,8 @@ namespace Clusteriser.Contracts
 {
     public interface ICluster
     {
-        List<Score> GetScores(ICluster cluster);
+        List<Score> GetScores(Cluster cluster);
+        //Cluster Compute(List<float[]> _vectors, int numberOfClusters);
 
     }
 }
