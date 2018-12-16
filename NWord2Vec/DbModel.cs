@@ -52,7 +52,7 @@ namespace NWord2Vec
             List<WordVector> resultList = new List<WordVector>();
             var inputText = File.ReadAllText(filePath);
             WordVector tempWordVector; 
-            var texCleaner = new MineText();
+            var texCleaner = new TextConvertor();
             texCleaner.textMiningLanguage = simple_text_mining_library.Classes.TextMiningLanguage.English;
             inputText = texCleaner.RemoveSpecialCharacters(inputText, true);
             inputText = texCleaner.RemoveStopWordsFromText(inputText);
@@ -61,6 +61,21 @@ namespace NWord2Vec
                 tempWordVector = ReadWordVector(item);
                 if(tempWordVector.Vector.Count()>0)
                 resultList.Add(tempWordVector);
+            }
+            return resultList;
+
+        }
+        public List<WordVector> CreateWordVectorList(List<string> _words)
+        {
+            List<WordVector> resultList = new List<WordVector>();
+            WordVector tempWordVector;
+
+            var listText = _words;
+            foreach (string item in listText)
+            {
+                tempWordVector = ReadWordVector(item);
+                if (tempWordVector.Vector.Count() > 0)
+                    resultList.Add(tempWordVector);
             }
             return resultList;
 

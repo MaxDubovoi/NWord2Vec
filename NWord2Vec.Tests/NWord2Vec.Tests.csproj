@@ -62,12 +62,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NWord2Vec\NWord2Vec.csproj">
-      <Project>{a058189c-3dbf-487e-95bc-905b139f38be}</Project>
-      <Name>NWord2Vec</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="model.txt.gz">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

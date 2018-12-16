@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAO_NET\DAO_NET.csproj" />
-    <ProjectReference Include="..\NWord2Vec\NWord2Vec.csproj" />
+    <ProjectReference Include="..\UI.Console\UI.Console.csproj" />
   </ItemGroup>
 
 </Project>

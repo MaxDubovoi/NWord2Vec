@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Clusteriser.Contracts;
 using Clusteriser.DTO;
-using ExtentionMethodsUtil;
+using ExstentionMethods;
 using System.Linq;
 
 namespace Clusteriser

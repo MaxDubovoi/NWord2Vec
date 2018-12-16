@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace simple_text_mining_library
 {
-    public class MineText
+    public class TextConvertor
     {
         TextMiningLanguage currentTextMiningLanguage;
         string currentBasicStopWordsFilePath;

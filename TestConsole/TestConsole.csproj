@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Clusteriser\Clusteriser.csproj">
-      <Project>{86e27ad4-5a7e-4175-976d-6768d83061f4}</Project>
-      <Name>Clusteriser</Name>
+    <ProjectReference Include="..\DAO_NET\DAO_NET.csproj">
+      <Project>{23b5296c-f2b1-4d59-83dc-1743bc4d474b}</Project>
+      <Name>DAO_NET</Name>
     </ProjectReference>
     <ProjectReference Include="..\DBModelConnector\DBModelConnector.csproj">
       <Project>{6ccfaadc-6019-44a5-8c81-3925e3bfc34e}</Project>
@@ -73,6 +73,10 @@
     <ProjectReference Include="..\NWord2Vec\NWord2Vec.csproj">
       <Project>{a058189c-3dbf-487e-95bc-905b139f38be}</Project>
       <Name>NWord2Vec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VectorClasteriser\VectorClasteriser.csproj">
+      <Project>{b877f5c6-6673-4251-b7c7-4439e0076f38}</Project>
+      <Name>VectorClasteriser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

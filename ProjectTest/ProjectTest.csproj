@@ -55,10 +55,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Clusteriser\Clusteriser.csproj">
-      <Project>{86e27ad4-5a7e-4175-976d-6768d83061f4}</Project>
-      <Name>Clusteriser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NWord2Vec\NWord2Vec.csproj">
       <Project>{a058189c-3dbf-487e-95bc-905b139f38be}</Project>
       <Name>NWord2Vec</Name>
