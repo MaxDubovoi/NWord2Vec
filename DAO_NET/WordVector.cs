@@ -21,5 +21,14 @@ namespace NWord2Vec
         {
             return this.Word;
         }
+        public static List<float[]> GetVectors(List<WordVector> _textVectors)
+        {
+            var bufferTextList = new List<float[]>();
+            foreach (WordVector item in _textVectors)
+            {
+                bufferTextList.Add(item.Vector);
+            }
+            return bufferTextList;
+        }
     }
 }

@@ -171,5 +171,15 @@ namespace simple_text_mining_library
 
             return tokens;
         }
+
+        public static List<string> TextToWordList(string text)
+        {
+            string proccesedText;
+            TextConvertor textConvertor = new TextConvertor();
+            textConvertor.textMiningLanguage = simple_text_mining_library.Classes.TextMiningLanguage.English;
+            proccesedText = textConvertor.RemoveStopWordsFromText(text);
+            proccesedText = textConvertor.RemoveSpecialCharacters(proccesedText, true);
+            return textConvertor.N1GramAnalysis(proccesedText);
+        }
     }
 }

@@ -27,49 +27,17 @@ namespace UI.Console
 
         public void SendQuery(string query)
         {
-            var n1GrammQuery = TextToWordVector(query);
-            var text = TextSearcher.Search(query);
-            var n1GrammText = TextToWordVector(text);
-            var vectorizedText = _word2VecModelDB.CreateWordVectorList(n1GrammText);
-            var vectorizedQuery = _word2VecModelDB.CreateWordVectorList(n1GrammQuery);
-            var score = GetAccordance(vectorizedText, vectorizedQuery);
-            _view.ShowTextWithScore(text, score);
-
-
-        }
-
-        private List<string> TextToWordVector(string text)
-        {
-            string proccesedText;
-            TextConvertor textConvertor = new TextConvertor();
-            textConvertor.textMiningLanguage = simple_text_mining_library.Classes.TextMiningLanguage.English;
-            proccesedText = textConvertor.RemoveStopWordsFromText(text);
-            proccesedText = textConvertor.RemoveSpecialCharacters(proccesedText, true);
-            return textConvertor.N1GramAnalysis(proccesedText);
-        }
-        private double GetAccordance(List<WordVector> _textVectors, List<WordVector> queryVectors)
-        {
-            var bufferTextList = new List<float[]>();
-            var bufferQueryList = new List<float[]>();
-            foreach (WordVector item in _textVectors)
-            {
-                bufferTextList.Add(item.Vector);
+            var n1GrammQuery = TextConvertor.TextToWordList(query);
+            var texts = TextSearcher.Search(query);
+            foreach (string text in texts)
+            { 
+                var n1GrammText = TextConvertor.TextToWordList(text);
+                var vectorizedText = _word2VecModelDB.CreateWordVectorList(n1GrammText);
+                var vectorizedQuery = _word2VecModelDB.CreateWordVectorList(n1GrammQuery);
+                var score = Cluster.GetAccordance(WordVector.GetVectors(vectorizedText), WordVector.GetVectors(vectorizedQuery));
+                _view.ShowTextWithScore(text, score);
             }
-            foreach (WordVector item in queryVectors)
-            {
-                bufferQueryList.Add(item.Vector);
-            }
-            Cluster textCluster = Cluster.Compute(bufferTextList, queryVectors.Count);
-            Cluster queryCluster = Cluster.Compute(bufferQueryList, queryVectors.Count);
-            var scores = queryCluster.GetScores(textCluster);
-            double sumScore = 0;
-            foreach (Score item in scores)
-            {
-                sumScore += item.Points;
-            }
-            var avgScore = sumScore / scores.Count;
-            return avgScore;
-            //Console.WriteLine("AvgScore in % = {0}", avgScore * 100);
+
 
         }
     }

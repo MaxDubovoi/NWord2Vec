@@ -28,6 +28,20 @@ namespace Clusteriser
 
             return new Cluster(_vectors,_centers);
         }
+        public static double GetAccordance(List<float[]> vectorsList1 , List<float[]> vectorsList2)
+        {
+            Cluster textCluster = Compute(vectorsList1, vectorsList1.Count);
+            Cluster queryCluster = Compute(vectorsList2, vectorsList2.Count);
+            var scores = queryCluster.GetScores(textCluster);
+            double sumScore = 0;
+            foreach (Score item in scores)
+            {
+                sumScore += item.Points;
+            }
+            var avgScore = sumScore / scores.Count;
+            return avgScore;
+            //Console.WriteLine("AvgScore in % = {0}", avgScore * 100);
+        }
 
         public List<Score> GetScores(Cluster textCluster)
         {

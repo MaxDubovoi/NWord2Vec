@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E77DD88A-3D0E-45B0-B3F9-1E5D9096B884}</ProjectGuid>
+    <ProjectGuid>{5F0121F3-C097-4F08-A619-986302FA1E70}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectTest</RootNamespace>
-    <AssemblyName>ProjectTest</AssemblyName>
+    <RootNamespace>UnitTests</RootNamespace>
+    <AssemblyName>UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -44,30 +44,37 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="Yuml.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Yuml.Net.1.3.0\lib\net45\Yuml.Net.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethodsTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModelViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBModelConnector\DBModelConnector.csproj">
+      <Project>{6ccfaadc-6019-44a5-8c81-3925e3bfc34e}</Project>
+      <Name>DBModelConnector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NWord2Vec\NWord2Vec.csproj">
       <Project>{a058189c-3dbf-487e-95bc-905b139f38be}</Project>
       <Name>NWord2Vec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\simple_text_mining_library\simple_text_mining_library\TextNormalizer.csproj">
+      <Project>{1175b0fe-aeb4-4fc3-8443-eaf59d665091}</Project>
+      <Name>TextNormalizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI.Console\UI.Console.csproj">
+      <Project>{b38c653b-c5f0-403c-8b68-58c7b6f72daf}</Project>
+      <Name>UI.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VectorClasteriser\VectorClasteriser.csproj">
+      <Project>{b877f5c6-6673-4251-b7c7-4439e0076f38}</Project>
+      <Name>VectorClasteriser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
